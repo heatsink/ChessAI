@@ -9,4 +9,4 @@ AI:
 Main:
 	gcc -o Main main.c
 clean:
-	rm -f *.o Board Move AI
+	rm -f *.o Board Move AI Main
