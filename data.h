@@ -43,9 +43,11 @@
 typedef int bool;
 enum bool { false, true };
 
+/*
 typedef int color;
 enum color { white, black };
 
+*/
 struct chessBoard {
     long unsigned long pawns;
     long unsigned long rooks;
@@ -53,13 +55,21 @@ struct chessBoard {
     long unsigned long bishops;
     long unsigned long kings;
     long unsigned long queens;
-    color color;
+    //color color;
 };
-
-// Data function prototypes
-bool lShift(long unsigned long *val);
+// Bit level operations
+U64 maskRank(int i);
+U64 maskFile(int j);
+U64 maskRankAndFile(int i, int j);
+U64 clearRank(int i);
+U64 clearFile(int j);
+U64 clearRankAndFile(int i, int j);
+bool lShift(U64 *val);
 // Chess board function prototypes
+void clearFromBoard(board *chessBoard, U64 rankAndFile);
 void initializeWhiteBoard(board *chessBoard);
 void initializeBlackBoard(board *chessBoard);
 bool containsPiece(board *whiteBoard, board *blackBoard, U64 rank, U64 file);
+void clearFromBoard(board *chessBoard, U64 rankAndFile);
+void clearFromBitBoards(board *whiteBoard, board *blackBoard, int i, int j);
 #endif

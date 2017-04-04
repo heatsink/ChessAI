@@ -13,7 +13,7 @@ void initializeWhiteBoard(board *chessBoard) {
     chessBoard->bishops = 0x0000000000000024;
     chessBoard->kings = 0x0000000000000008;
     chessBoard->queens = 0x0000000000000010;
-    chessBoard->color = white;
+    //chessBoard->color = white;
 }
 
 /*
@@ -26,7 +26,7 @@ void initializeBlackBoard(board *chessBoard) {
     chessBoard->bishops = 0x2400000000000000;
     chessBoard->kings = 0x0800000000000000;
     chessBoard->queens = 0x1000000000000000;
-    chessBoard->color = black;
+    //chessBoard->color = black;
 }
 
 /*
@@ -54,6 +54,158 @@ U64 allPieces(board *whiteBoard, board *blackBoard) {
 U64 allPiecesOfColor(board *whiteBoard) {
     return whiteBoard->pawns + whiteBoard->rooks + whiteBoard->knights
         + whiteBoard->bishops + whiteBoard-> queens + whiteBoard-> kings;
+}
+
+U64 maskRank(int i) {
+    switch(i) {
+        case 1:
+            return MASK_RANK_1;
+            break;
+        case 2:
+            return MASK_RANK_2;
+            break;
+        case 3:
+            return MASK_RANK_3;
+            break;
+        case 4:
+            return MASK_RANK_4;
+            break;
+        case 5:
+            return MASK_RANK_5;
+            break;
+        case 6:
+            return MASK_RANK_6;
+            break;
+        case 7:
+            return MASK_RANK_7;
+            break;
+        case 8:
+            return MASK_RANK_8;
+            break;
+        default:
+            fprintf(stderr, "Internal Error. Attempting to mask rank#%d\n", i);
+            exit(-1);
+    }
+}
+
+U64 maskFile(int j) {
+    switch(j) {
+        case 1:
+            return MASK_FILE_A;
+            break;
+        case 2:
+            return MASK_FILE_B;
+            break;
+        case 3:
+            return MASK_FILE_C;
+            break;
+        case 4:
+            return MASK_FILE_D;
+            break;
+        case 5:
+            return MASK_FILE_E;
+            break;
+        case 6:
+            return MASK_FILE_F;
+            break;
+        case 7:
+            return MASK_FILE_G;
+            break;
+        case 8:
+            return MASK_FILE_H;
+            break;
+        default:
+            fprintf(stderr, "Internal Error. Attempting to mask file#%d\n", j);
+            exit(-1);
+    }
+
+
+
+}
+U64 maskRankAndFile(int i, int j) {
+    return maskRank(i)&maskFile(j);
+}
+
+U64 clearRank(int i) {
+    switch(i) {
+        case 1:
+            return CLEAR_RANK_1;
+            break;
+        case 2:
+            return CLEAR_RANK_2;
+            break;
+        case 3:
+            return CLEAR_RANK_3;
+            break;
+        case 4:
+            return CLEAR_RANK_4;
+            break;
+        case 5:
+            return CLEAR_RANK_5;
+            break;
+        case 6:
+            return CLEAR_RANK_6;
+            break;
+        case 7:
+            return CLEAR_RANK_7;
+            break;
+        case 8:
+            return CLEAR_RANK_8;
+            break;
+        default:
+            fprintf(stderr, "Internal Error. Attempting to clear rank#%d\n", i);
+            exit(-1);
+    }
+}
+
+U64 clearFile(int j) {
+    switch(j) {
+        case 1:
+            return CLEAR_FILE_A;
+            break;
+        case 2:
+            return CLEAR_FILE_B;
+            break;
+        case 3:
+            return CLEAR_FILE_C;
+            break;
+        case 4:
+            return CLEAR_FILE_D;
+            break;
+        case 5:
+            return CLEAR_FILE_E;
+            break;
+        case 6:
+            return CLEAR_FILE_F;
+            break;
+        case 7:
+            return CLEAR_FILE_G;
+            break;
+        case 8:
+            return CLEAR_FILE_H;
+            break;
+        default:
+            fprintf(stderr, "Internal Error. Attempting to clear file#%d\n", j);
+            exit(-1);
+    }
+}
+
+U64 clearRankAndFile(int i, int j) {
+    return ~(maskRank(i)&maskFile(j));
+}
+
+void clearFromBoard(board *chessBoard, U64 rankAndFile) {
+    chessBoard->pawns = chessBoard->pawns&rankAndFile;
+    chessBoard->rooks = chessBoard->rooks&rankAndFile;
+    chessBoard->knights  = chessBoard->knights&rankAndFile;
+    chessBoard->bishops = chessBoard->bishops&rankAndFile;
+    chessBoard->kings = chessBoard->kings&rankAndFile;
+    chessBoard->queens = chessBoard->queens&rankAndFile;
+}
+
+void clearFromBitBoards(board *whiteBoard, board *blackBoard, int i, int j) {
+    clearFromBoard(whiteBoard, clearRankAndFile(i, j));
+    clearFromBoard(blackBoard, clearRankAndFile(i, j));
 }
 
 /*

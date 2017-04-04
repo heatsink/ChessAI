@@ -12,14 +12,19 @@ int main() {
     char **charBoard = createCharBoard(whiteBoard, blackBoard);
     printCharBoard(charBoard);
     /*
-    charBoard = createCharBoard(whiteBoard, blackBoard);
-    printCharBoard(charBoard);
-    */
+    Checks if there is a piece in the rank and file specified
     if (containsPiece(whiteBoard, blackBoard, MASK_FILE_A, MASK_RANK_2)) {
         printf("Pawn in the house!\n"); 
     }
     else {
         printf("No pawn here.\n"); 
     }
+    */
+    /*
+    // Removes a piece from the board and prints it
+    clearFromBitBoards(whiteBoard, blackBoard, 1, 3);
+    charBoard = createCharBoard(whiteBoard, blackBoard);
+    printCharBoard(charBoard);
+    */
 	return 0;
 }
