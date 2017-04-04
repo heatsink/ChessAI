@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "data.h"
 #include "support.h"
-
 /*
  * Initializes white pieces with default values
  */
@@ -118,10 +117,8 @@ U64 maskFile(int j) {
             fprintf(stderr, "Internal Error. Attempting to mask file#%d\n", j);
             exit(-1);
     }
-
-
-
 }
+
 U64 maskRankAndFile(int i, int j) {
     return maskRank(i)&maskFile(j);
 }
@@ -192,6 +189,63 @@ U64 clearFile(int j) {
 
 U64 clearRankAndFile(int i, int j) {
     return ~(maskRank(i)&maskFile(j));
+}
+
+U64 whitePawnMoves(board *whiteBoard, U64 rank, U64 file) {
+    U64 moves = rank&file;
+    //printf("rank&file: %llu\n", rank&file);
+    //moves <<= 8;
+    moves = moves << 8;
+    return moves;
+}
+
+U64 blackPawnMoves(board *blackBoard, U64 rank, U64 file) {
+    U64 moves = rank&file;
+    moves >>= 8;
+    return moves;
+}
+
+
+bool isPawn(board *whiteBoard, U64 rank, U64 file) {
+    if ((whiteBoard->pawns&rank&file) == (rank&file)) {
+        return true;
+    }
+    return false;
+}
+
+bool isRook(board *whiteBoard, U64 rank, U64 file) {
+    if ((whiteBoard->rooks&rank&file) == (rank&file)) {
+        return true;
+    }
+    return false;
+}
+
+bool isKnight(board *whiteBoard, U64 rank, U64 file) {
+    if ((whiteBoard->knights&rank&file) == (rank&file)) {
+        return true;
+    }
+    return false;
+}
+
+bool isBishop(board *whiteBoard, U64 rank, U64 file) {
+    if ((whiteBoard->bishops&rank&file) == (rank&file)) {
+        return true;
+    }
+    return false;
+}
+
+bool isQueen(board *whiteBoard, U64 rank, U64 file) {
+    if ((whiteBoard->queens&rank&file) == (rank&file)) {
+        return true;
+    }
+    return false;
+}
+
+bool isKing(board *whiteBoard, U64 rank, U64 file) {
+    if ((whiteBoard->kings&rank&file) == (rank&file)) {
+        return true;
+    }
+    return false;
 }
 
 void clearFromBoard(board *chessBoard, U64 rankAndFile) {

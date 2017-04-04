@@ -72,4 +72,14 @@ void initializeBlackBoard(board *chessBoard);
 bool containsPiece(board *whiteBoard, board *blackBoard, U64 rank, U64 file);
 void clearFromBoard(board *chessBoard, U64 rankAndFile);
 void clearFromBitBoards(board *whiteBoard, board *blackBoard, int i, int j);
+// Piece Checks
+bool isPawn(board *whiteBoard, U64 rank, U64 file);
+bool isRook(board *whiteBoard, U64 rank, U64 file);
+bool isKnight(board *whiteBoard, U64 rank, U64 file);
+bool isBishop(board *whiteBoard, U64 rank, U64 file);
+bool isQueen(board *whiteBoard, U64 rank, U64 file);
+bool isKing(board *whiteBoard, U64 rank, U64 file);
+// Move Generation
+U64 whitePawnMoves(board *whiteBoard, U64 rank, U64 file);
+
 #endif

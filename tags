@@ -7,32 +7,79 @@
 BOARD_SIZE	data.h	4;"	d
 C	Makefile	/^C = gcc$/;"	m
 CFLAGS	Makefile	/^CFLAGS = -Wall -std=gnu99 -pedantic$/;"	m
+CLEAR_FILE_A	data.h	16;"	d
+CLEAR_FILE_B	data.h	17;"	d
+CLEAR_FILE_C	data.h	18;"	d
+CLEAR_FILE_D	data.h	19;"	d
+CLEAR_FILE_E	data.h	20;"	d
+CLEAR_FILE_F	data.h	21;"	d
+CLEAR_FILE_G	data.h	22;"	d
+CLEAR_FILE_H	data.h	23;"	d
+CLEAR_RANK_1	data.h	34;"	d
+CLEAR_RANK_2	data.h	35;"	d
+CLEAR_RANK_3	data.h	36;"	d
+CLEAR_RANK_4	data.h	37;"	d
+CLEAR_RANK_5	data.h	38;"	d
+CLEAR_RANK_6	data.h	39;"	d
+CLEAR_RANK_7	data.h	40;"	d
+CLEAR_RANK_8	data.h	41;"	d
 DATA_H	data.h	2;"	d
 MAIN	Makefile	/^MAIN = run$/;"	m
-OBJS	Makefile	/^OBJS = main.c support.c$/;"	m
+MASK_FILE_A	data.h	7;"	d
+MASK_FILE_B	data.h	8;"	d
+MASK_FILE_C	data.h	9;"	d
+MASK_FILE_D	data.h	10;"	d
+MASK_FILE_E	data.h	11;"	d
+MASK_FILE_F	data.h	12;"	d
+MASK_FILE_G	data.h	13;"	d
+MASK_FILE_H	data.h	14;"	d
+MASK_RANK_1	data.h	25;"	d
+MASK_RANK_2	data.h	26;"	d
+MASK_RANK_3	data.h	27;"	d
+MASK_RANK_4	data.h	28;"	d
+MASK_RANK_5	data.h	29;"	d
+MASK_RANK_6	data.h	30;"	d
+MASK_RANK_7	data.h	31;"	d
+MASK_RANK_8	data.h	32;"	d
+OBJS	Makefile	/^OBJS = main.c data.c support.c$/;"	m
 SUPPORT_H	support.h	2;"	d
+U64	data.h	5;"	d
+allPieces	data.c	/^U64 allPieces(board *whiteBoard, board *blackBoard) {$/;"	f
+allPiecesOfColor	data.c	/^U64 allPiecesOfColor(board *whiteBoard) {$/;"	f
 bishops	data.h	/^    long unsigned long bishops;$/;"	m	struct:chessBoard
-black	data.h	/^enum color { white, black };$/;"	e	enum:color
+board	data.h	6;"	d
 bool	data.h	/^enum bool { false, true };$/;"	g
 bool	data.h	/^typedef int bool;$/;"	t
 checked_malloc	support.c	/^void *checked_malloc(size_t size) {$/;"	f
 checked_realloc	support.c	/^void *checked_realloc(void *pointer, size_t size) {$/;"	f
 chessBoard	data.h	/^struct chessBoard {$/;"	s
-color	data.h	/^    color color;$/;"	m	struct:chessBoard
-color	data.h	/^enum color { white, black };$/;"	g
-color	data.h	/^typedef int color;$/;"	t
+clearFile	data.c	/^U64 clearFile(int j) {$/;"	f
+clearFromBitBoards	data.c	/^void clearFromBitBoards(board *whiteBoard, board *blackBoard, int i, int j) {$/;"	f
+clearFromBoard	data.c	/^void clearFromBoard(board *chessBoard, U64 rankAndFile) {$/;"	f
+clearRank	data.c	/^U64 clearRank(int i) {$/;"	f
+clearRankAndFile	data.c	/^U64 clearRankAndFile(int i, int j) {$/;"	f
+containsPiece	data.c	/^bool containsPiece(board *whiteBoard, board *blackBoard, U64 rank, U64 file) {$/;"	f
+containsPieceOfColor	data.c	/^bool containsPieceOfColor(board *chessBoard, U64 rank, U64 file) {$/;"	f
 createCharBoard	support.c	/^char **createCharBoard(struct chessBoard *whiteBoard, struct chessBoard *blackBoard) {$/;"	f
 detectPiece	support.c	/^bool detectPiece(int rowAndCol, long unsigned long val) {$/;"	f
 false	data.h	/^enum bool { false, true };$/;"	e	enum:bool
-initializeBlackBoard	main.c	/^void initializeBlackBoard(struct chessBoard *chessBoard) {$/;"	f
-initializeWhiteBoard	main.c	/^void initializeWhiteBoard(struct chessBoard *chessBoard) {$/;"	f
+initializeBlackBoard	data.c	/^void initializeBlackBoard(board *chessBoard) {$/;"	f
+initializeWhiteBoard	data.c	/^void initializeWhiteBoard(board *chessBoard) {$/;"	f
+isBishop	data.c	/^bool isBishop(board *whiteBoard, U64 rank, U64 file) {$/;"	f
+isKing	data.c	/^bool isKing(board *whiteBoard, U64 rank, U64 file) {$/;"	f
+isKnight	data.c	/^bool isKnight(board *whiteBoard, U64 rank, U64 file) {$/;"	f
+isPawn	data.c	/^bool isPawn(board *whiteBoard, U64 rank, U64 file) {$/;"	f
+isQueen	data.c	/^bool isQueen(board *whiteBoard, U64 rank, U64 file) {$/;"	f
+isRook	data.c	/^bool isRook(board *whiteBoard, U64 rank, U64 file) {$/;"	f
 kings	data.h	/^    long unsigned long kings;$/;"	m	struct:chessBoard
 knights	data.h	/^    long unsigned long knights;$/;"	m	struct:chessBoard
 lShift	data.c	/^bool lShift(long unsigned long *val) {$/;"	f
 main	main.c	/^int main() {$/;"	f
+maskFile	data.c	/^U64 maskFile(int j) {$/;"	f
+maskRank	data.c	/^U64 maskRank(int i) {$/;"	f
+maskRankAndFile	data.c	/^U64 maskRankAndFile(int i, int j) {$/;"	f
 pawns	data.h	/^    long unsigned long pawns;$/;"	m	struct:chessBoard
 printCharBoard	support.c	/^void printCharBoard(char **charBoard) {$/;"	f
 queens	data.h	/^    long unsigned long queens;$/;"	m	struct:chessBoard
 rooks	data.h	/^    long unsigned long rooks;$/;"	m	struct:chessBoard
 true	data.h	/^enum bool { false, true };$/;"	e	enum:bool
-white	data.h	/^enum color { white, black };$/;"	e	enum:color
