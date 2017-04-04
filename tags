@@ -1,0 +1,38 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+BOARD_SIZE	data.h	4;"	d
+C	Makefile	/^C = gcc$/;"	m
+CFLAGS	Makefile	/^CFLAGS = -Wall -std=gnu99 -pedantic$/;"	m
+DATA_H	data.h	2;"	d
+MAIN	Makefile	/^MAIN = run$/;"	m
+OBJS	Makefile	/^OBJS = main.c support.c$/;"	m
+SUPPORT_H	support.h	2;"	d
+bishops	data.h	/^    long unsigned long bishops;$/;"	m	struct:chessBoard
+black	data.h	/^enum color { white, black };$/;"	e	enum:color
+bool	data.h	/^enum bool { false, true };$/;"	g
+bool	data.h	/^typedef int bool;$/;"	t
+checked_malloc	support.c	/^void *checked_malloc(size_t size) {$/;"	f
+checked_realloc	support.c	/^void *checked_realloc(void *pointer, size_t size) {$/;"	f
+chessBoard	data.h	/^struct chessBoard {$/;"	s
+color	data.h	/^    color color;$/;"	m	struct:chessBoard
+color	data.h	/^enum color { white, black };$/;"	g
+color	data.h	/^typedef int color;$/;"	t
+createCharBoard	support.c	/^char **createCharBoard(struct chessBoard *whiteBoard, struct chessBoard *blackBoard) {$/;"	f
+detectPiece	support.c	/^bool detectPiece(int rowAndCol, long unsigned long val) {$/;"	f
+false	data.h	/^enum bool { false, true };$/;"	e	enum:bool
+initializeBlackBoard	main.c	/^void initializeBlackBoard(struct chessBoard *chessBoard) {$/;"	f
+initializeWhiteBoard	main.c	/^void initializeWhiteBoard(struct chessBoard *chessBoard) {$/;"	f
+kings	data.h	/^    long unsigned long kings;$/;"	m	struct:chessBoard
+knights	data.h	/^    long unsigned long knights;$/;"	m	struct:chessBoard
+lShift	data.c	/^bool lShift(long unsigned long *val) {$/;"	f
+main	main.c	/^int main() {$/;"	f
+pawns	data.h	/^    long unsigned long pawns;$/;"	m	struct:chessBoard
+printCharBoard	support.c	/^void printCharBoard(char **charBoard) {$/;"	f
+queens	data.h	/^    long unsigned long queens;$/;"	m	struct:chessBoard
+rooks	data.h	/^    long unsigned long rooks;$/;"	m	struct:chessBoard
+true	data.h	/^enum bool { false, true };$/;"	e	enum:bool
+white	data.h	/^enum color { white, black };$/;"	e	enum:color
