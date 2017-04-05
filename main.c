@@ -27,8 +27,7 @@ int main() {
 
     U64 moves = whitePawnMoves(whiteBoard, MASK_FILE_A, MASK_RANK_2);
     printf("Pawn moves: %llu\n", moves);
-    //whiteBoard->pawns = whiteBoard->pawns & moves;
-    whiteBoard->pawns = whiteBoard->pawns || moves;
+    whiteBoard->pawns = whiteBoard->pawns | moves;
 
     clearFromBitBoards(whiteBoard, blackBoard, 2, 1);
     charBoard = createCharBoard(whiteBoard, blackBoard);

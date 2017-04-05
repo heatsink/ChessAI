@@ -193,9 +193,10 @@ U64 clearRankAndFile(int i, int j) {
 
 U64 whitePawnMoves(board *whiteBoard, U64 rank, U64 file) {
     U64 moves = rank&file;
-    //printf("rank&file: %llu\n", rank&file);
-    //moves <<= 8;
     moves = moves << 8;
+    if ((whiteBoard->pawns&rank) == (MASK_RANK_2)) {
+        moves = moves || moves << 8; // Shifts another 8 for a total of 16
+    }
     return moves;
 }
 
@@ -204,7 +205,6 @@ U64 blackPawnMoves(board *blackBoard, U64 rank, U64 file) {
     moves >>= 8;
     return moves;
 }
-
 
 bool isPawn(board *whiteBoard, U64 rank, U64 file) {
     if ((whiteBoard->pawns&rank&file) == (rank&file)) {
