@@ -25,12 +25,13 @@ int main() {
     printCharBoard(charBoard);
     */
 
-    U64 moves = whitePawnMoves(whiteBoard, MASK_FILE_A, MASK_RANK_2);
+    U64 moves = whitePawnMoves(whiteBoard, blackBoard, MASK_RANK_2, MASK_FILE_A);
     printf("Pawn moves: %llu\n", moves);
     whiteBoard->pawns = whiteBoard->pawns | moves;
 
     clearFromBitBoards(whiteBoard, blackBoard, 2, 1);
     charBoard = createCharBoard(whiteBoard, blackBoard);
     printCharBoard(charBoard);
+    verifyBoard(whiteBoard, blackBoard);
 	return 0;
 }

@@ -79,7 +79,8 @@ bool isKnight(board *whiteBoard, U64 rank, U64 file);
 bool isBishop(board *whiteBoard, U64 rank, U64 file);
 bool isQueen(board *whiteBoard, U64 rank, U64 file);
 bool isKing(board *whiteBoard, U64 rank, U64 file);
+void verifyBoard(board *whiteBoard, board *blackBoard);
 // Move Generation
-U64 whitePawnMoves(board *whiteBoard, U64 rank, U64 file);
+U64 whitePawnMoves(board *whiteBoard, board *blackBoard, U64 rank, U64 file);
 
 #endif

@@ -47,6 +47,7 @@ U64	data.h	5;"	d
 allPieces	data.c	/^U64 allPieces(board *whiteBoard, board *blackBoard) {$/;"	f
 allPiecesOfColor	data.c	/^U64 allPiecesOfColor(board *whiteBoard) {$/;"	f
 bishops	data.h	/^    long unsigned long bishops;$/;"	m	struct:chessBoard
+blackPawnMoves	data.c	/^U64 blackPawnMoves(board *blackBoard, U64 rank, U64 file) {$/;"	f
 board	data.h	6;"	d
 bool	data.h	/^enum bool { false, true };$/;"	g
 bool	data.h	/^typedef int bool;$/;"	t
@@ -83,3 +84,4 @@ printCharBoard	support.c	/^void printCharBoard(char **charBoard) {$/;"	f
 queens	data.h	/^    long unsigned long queens;$/;"	m	struct:chessBoard
 rooks	data.h	/^    long unsigned long rooks;$/;"	m	struct:chessBoard
 true	data.h	/^enum bool { false, true };$/;"	e	enum:bool
+whitePawnMoves	data.c	/^U64 whitePawnMoves(board *whiteBoard, U64 rank, U64 file) {$/;"	f

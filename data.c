@@ -8,11 +8,11 @@
 void initializeWhiteBoard(board *chessBoard) {
     chessBoard->pawns = 0x000000000000FF00;
     chessBoard->rooks = 0x0000000000000081;
+    //chessBoard->rooks = 0x0000000000400081;
     chessBoard->knights  = 0x0000000000000042;
     chessBoard->bishops = 0x0000000000000024;
     chessBoard->kings = 0x0000000000000008;
     chessBoard->queens = 0x0000000000000010;
-    //chessBoard->color = white;
 }
 
 /*
@@ -25,7 +25,6 @@ void initializeBlackBoard(board *chessBoard) {
     chessBoard->bishops = 0x2400000000000000;
     chessBoard->kings = 0x0800000000000000;
     chessBoard->queens = 0x1000000000000000;
-    //chessBoard->color = black;
 }
 
 /*
@@ -191,11 +190,27 @@ U64 clearRankAndFile(int i, int j) {
     return ~(maskRank(i)&maskFile(j));
 }
 
-U64 whitePawnMoves(board *whiteBoard, U64 rank, U64 file) {
-    U64 moves = rank&file;
-    moves = moves << 8;
-    if ((whiteBoard->pawns&rank) == (MASK_RANK_2)) {
-        moves = moves || moves << 8; // Shifts another 8 for a total of 16
+U64 whitePawnMoves(board *whiteBoard, board *blackBoard, U64 rank, U64 file) {
+    U64 moves = 0;
+    if (!containsPiece(whiteBoard, blackBoard, (rank<<8), file)) {
+        // Default Move
+        moves = moves | (rank&file) << 8; // Requires check for a piece above
+        if ((rank == MASK_RANK_2) && (!containsPiece(whiteBoard, blackBoard, (rank<<16), file))) {
+            // First Move
+            moves = moves | (rank&file) << 16; // Requires check for a piece 1&2 above
+        }
+    }
+    // Left Attack
+    if ((file != MASK_FILE_A) && (!containsPiece(whiteBoard, blackBoard, (rank<<8), (file<<1)))) {
+    //bool containsPiece(board *whiteBoard, board *blackBoard, U64 rank, U64 file) {
+       moves = moves | (rank&file) << 9; // Requires check for black piece to the left
+    }
+
+    // Right Attack
+    //if ((file != MASK_FILE_H) && (!containsPiece(whiteBoard, blackBoard, (rank<<8), (file<<1)))) {
+    if (file != MASK_FILE_H) {
+    //bool containsPiece(board *whiteBoard, board *blackBoard, U64 rank, U64 file) {
+       moves = moves | (rank&file) << 7; // Requires check for black piece to the right
     }
     return moves;
 }
@@ -248,12 +263,77 @@ bool isKing(board *whiteBoard, U64 rank, U64 file) {
     return false;
 }
 
+void verifyBoard(board *whiteBoard, board *blackBoard) {
+    int count = 0;
+    for (int i = 1; i <= 8; i++) {
+        //printf("i:%d ", i);
+        for (int j = 1; j <= 8; j++) {
+            //printf("j %d ", j);
+            count = 0;
+            if ((whiteBoard->pawns&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("wpawn!\n");
+                count++;
+            }
+            if ((whiteBoard->rooks&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("wrook!\n");
+                count++;
+            }
+            if ((whiteBoard->knights&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("wknight!\n");
+                count++;
+            }
+            if ((whiteBoard->bishops&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("wbishop!\n");
+                count++;
+            }
+            if ((whiteBoard->queens&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("wqueen!\n");
+                count++;
+            }
+            if ((whiteBoard->kings&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("wking!\n");
+                count++;
+            }
+            if ((blackBoard->pawns&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("bpawn!\n");
+                count++;
+            }
+            if ((blackBoard->rooks&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("brook!\n");
+                count++;
+            }
+            if ((blackBoard->knights&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("bknight!\n");
+                count++;
+            }
+            if ((blackBoard->bishops&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("bbishop!\n");
+                count++;
+            }
+            if ((blackBoard->queens&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("bqueen!\n");
+                count++;
+            }
+            if ((blackBoard->kings&maskRank(i)&maskFile(j)) == (maskRank(i)&maskFile(j))) {
+                //printf("bking!\n");
+                count++;
+            }
+            //printf("count end: %u\n", count);
+            if (count > 1) {
+                fprintf(stderr, "Internal Error. More than one piece represented.\n");
+                exit(-1);
+            }
+            //count = 0;
+        }
+    }
+    printf("Board Verification Complete. Board is valid.\n");
+}
+
 void clearFromBoard(board *chessBoard, U64 rankAndFile) {
     chessBoard->pawns = chessBoard->pawns&rankAndFile;
     chessBoard->rooks = chessBoard->rooks&rankAndFile;
     chessBoard->knights  = chessBoard->knights&rankAndFile;
-    chessBoard->bishops = chessBoard->bishops&rankAndFile;
-    chessBoard->kings = chessBoard->kings&rankAndFile;
+    chessBoard->bishops = chessBoard->bishops&rankAndFile; chessBoard->kings = chessBoard->kings&rankAndFile;
     chessBoard->queens = chessBoard->queens&rankAndFile;
 }
 
